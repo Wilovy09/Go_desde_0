@@ -635,3 +635,16 @@ func main() {
     }
 }
 ```
+
+## Operadores en asignación
+
+a = 5
+
+| Operador | Descripción                  | Ejemplo          |
+|----------|------------------------------|------------------|
+| =        | Asignar un valor             | a = 5            |
+| +=       | Suma en asignación           | a = a+3  -> a+=3 |
+| -=       | Resta en asignación          | a -= 3           |
+| *=       | Multiplicación en asignación | a *= 3           |
+| /=       | División en asignación       | a /= 3           |
+| %=       | Módulo en asignación         | a %= 3           |
