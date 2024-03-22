@@ -454,3 +454,184 @@ func main() {
     fmt.Println("Resultado de a menor o igual que b: ", a <= b)
 }
 ```
+
+## Condicionales
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // Si es false haz:
+    if false {
+        fmt.Println("Se cumple la condición")
+    }
+    // si no es falso haz:
+    else {
+        fmt.Println("No se cumple la condición")
+    }
+}
+```
+
+### Ejercicio #3
+
+Crear una aplicación que pide el valor de ``a``, el valor de ``b`` e imprimir si es par o impar.
+
+#### Respuesta ejercicio #3
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    var a int
+
+    fmt.Println("Ingrese un número: ")
+    fmt.Scan(&a)
+
+    if a%2 == 0{
+        fmt.Println("Es par")
+    } else {
+        fmt.Println("Es impar")
+    }
+}
+```
+
+Y si tenemos mas de una condición?, para eso usamos ``else if``
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    var a int
+
+    fmt.Println("Ingrese un número: ")
+    fmt.Scan(&a)
+
+    // si a es igual a 0 haz:
+    if a == 0{
+        fmt.Println("Es neutro")
+    }
+    // si el módulo de a%2 es 0 haz:
+    else if a%2 == 0{
+        fmt.Println("Es par")
+    }
+    // si no se cumple ninguna haz:
+    else {
+        fmt.Println("Es impar")
+    }
+}
+```
+
+## Operadores lógicos
+
+Los péradores lógicos lo que hace es comprarar dos valores booleanos, tenemos 3 operadores:
+
+- **NOT !**, lo que hace negar su valor. Si su valor es true lo negara a false.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    fmt.Println(! true)
+}
+```
+
+- **AND &&**, lo que hace es comprara 2 valores booleanos y devuelve otro valor booleano, solo cuanbdo ambos son true devuelve true.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    fmt.Println(true && true)
+}
+```
+
+- **OR ||**, lo que hace es también comparar 2 valores booleanos y devuelve otro valore booleano en este caso ambos o al menos uno tiene que ser true para que devuelva true.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    fmt.Println(true || false)
+}
+```
+
+## Switch ó Casos
+
+Los casos trabajan dentro de la instrucción switch, son estructuras selectiva múltiple donde puede realizar varios casos.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    var n int
+
+    fmt.Println("1 o 2:")
+    fmt.Scanln(&n)
+
+    switch n {
+    // Si n == 1 haz:
+    case 1:
+        fmt.Println("El número es 1")
+    // Si n == 2 haz:
+    case 2:
+        fmt.Println("El número es 2")
+    // Si n no coincide con ningún caso haz:
+    default:
+        fmt.Println("El número ingresado no es 1 ni 2")
+    }
+}
+```
+
+### Ejercicio #4
+
+Realiza un sistema que pida ingresar un número del 1 al 5 y devuelva escrito como por ejemplo, ingrese un número que sea 3 y devuelve TRES
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    var n int
+
+    fmt.Println("Ingrese un número del 1 al 5:")
+    fmt.Scanln(&n)
+
+    switch n {
+    case 1:
+        fmt.Println("UNO")
+    case 2:
+        fmt.Println("DOS")
+    case 3:
+        fmt.Println("TRES")
+    case 4:
+        fmt.Println("CUATRO")
+    case 5:
+        fmt.Println("CINCO")
+    default:
+        fmt.Println("El número ingresado no está en el rango de 1 al 5")
+    }
+}
+```

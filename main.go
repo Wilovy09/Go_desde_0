@@ -3,18 +3,24 @@ package main
 import "fmt"
 
 func main() {
-    var a,b int
 
-    fmt.Print("Valor de a: ")
-    fmt.Scanln(&a)
+    var n int
 
-    fmt.Print("Valor de b: ")
-    fmt.Scanln(&b)
+    fmt.Println("Ingrese un número del 1 al 5:")
+    fmt.Scanln(&n)
 
-    fmt.Println("Resultado de a igual a b: ", a == b)
-    fmt.Println("Resultado de a diferente de b: ", a != b)
-    fmt.Println("Resultado de a mayor que b: ", a > b)
-    fmt.Println("Resultado de a menor que b: ", a < b)
-    fmt.Println("Resultado de a mayor o igual que b: ", a >= b)
-    fmt.Println("Resultado de a menor o igual que b: ", a <= b)
+    switch n {
+    case 1:
+        fmt.Println("UNO")
+    case 2:
+        fmt.Println("DOS")
+    case 3:
+        fmt.Println("TRES")
+    case 4:
+        fmt.Println("CUATRO")
+    case 5:
+        fmt.Println("CINCO")
+    default:
+        fmt.Println("El número ingresado no está en el rango de 1 al 5")
+    }
 }
