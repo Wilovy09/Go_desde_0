@@ -648,3 +648,63 @@ a = 5
 | *=       | Multiplicación en asignación | a *= 3           |
 | /=       | División en asignación       | a /= 3           |
 | %=       | Módulo en asignación         | a %= 3           |
+| ++       | Suma 1                       | a++              |
+| --       | Resta 1                      | a--              |
+
+## Bucle For
+
+El Go no existe ``while``, ``do while`` simplemente existe el bucle ``For`` y puede ser usado como ``while``, ``do while``.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // como for
+    for i := 0; i < 5; i++{
+        fmt.Println(i)
+    }
+
+    // como do while
+    var c int = 0
+    for c <= 5{
+        fmt.Println(c)
+        c++
+    }
+
+    // como while
+    var a int = 0
+    for true{
+        fmt.Println(a)
+        a++
+    }
+}
+```
+
+### Break y Continue
+
+Las palabras reservadas ``break`` y ``continue``. Sirven para detener o continuar la ejecución de nuestro bucle.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    for i := 0; i < 10; i++{
+
+        if i == 8 {
+            fmt.Println("break")
+            break
+        } else {
+            fmt.Println("Continue", i)
+            continue
+        }
+
+    }
+
+}
+```
