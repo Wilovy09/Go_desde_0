@@ -804,13 +804,208 @@ func saludo() {
 }
 ```
 
----
+## Operaciones con Cadenas
 
-## Go
+Para hacer operaciones con cadenas de caracteres tenemos que importar otra libereria que se llama [strings](https://pkg.go.dev/strings).
+
+```go
+import (
+    "fmt"
+    "strings"
+)
+```
+
+Ejemplos de operaciones con cadenas de caracteres.
+
+```go
+package main
+
+import (
+    "fmt"
+    "strings"
+)
+
+func main() {
+    fmt.Println(strings.Contains("Hello, World!", "Hello"))
+    // Output: true
+
+    r := strings.NewReplacer("<", "&lt;", ">", "&gt;")
+    fmt.Println(r.Replace("This is <b>HTML</b>!"))
+    // Output: This is &lt;b&gt;HTML&lt;/b&gt;!
+}
+```
+
+Te invito a que visites la [documentación](https://pkg.go.dev/strings) de la liberia strings para que puedas ver todas las funciones que puedes usar.
+
+## Paquetes
+
+Con los paquetes podemos organizar más nuestro proyecto, un parque en Go sirve para contener nuestros archivos Go y organizar Para crear un paquete simplemente creas una carpeta, pero a si sola no indica nada para que sea un paquete tenemos que crear un archivo de Go y indicar dentro del archivo el nombre del paquete (nombre de la carpeta creada para paquete).
+
+```go
+📦Go_desde_0
+ ┃ // Paquete (carpeta creada para paquete)
+ ┣ 📂mensaje
+ ┃ ┃ // Archivo dentro de paquete
+ ┃ ┗ 📜saludo1.go
+ ┃ // Archivo principal que trabaja con paquete main
+ ┗ 📜main.go
+```
+
+Dentro de estos archivos tenemos que definir el paque y crear funciones. Para crear funciones podemos hacer de dos formas.
+
+- **Privada:** En Go para crear un funcion o metodo privado simplemente inlciamos el nombre de la función con minúscula y esta función no puede ser accedida de fuera del paquete.
+- **Pública:** En Go para crear un funcion o metodo publico solo inicias el nombre de la función con mayúscula V este funcione si puede ser accedida de fuera del paquete. Una función pública tiene que ser documentada Imciando_con su nombre.
+
+Para poder continuar con esto, debemos de ejecutar el siguiente comando en nuestra terminal:
 
 ```sh
 # Para inicializar un modulo de go
-go mod init NOMBRE
+go mod init github.com/USER/NOMBRE_CARPETA_EN_LA_QUE_ESTAMOS_TRABAJANDO
+```
+
+Esto nos creara un archivo ``go.mod``
+
+```go
+// go.mod
+module github.com/Wilovy09/Go_desde_0
+
+go 1.22.1
+```
+
+Una vez creado esto, podemos empezar a crear la siguiente estructura de carpeta en nuestro proyecto.
+
+```go
+📦Go_desde_0
+ ┃ // Creamos una carpeta "mensaje"
+ ┣ 📂mensaje
+ ┃ ┃ // Creamos un archivo "saludo1.go"
+ ┃ ┗ 📜saludo1.go
+ ┃ // Nuestro go.mod
+ ┣ 📜go.mod
+ ┃ // Nuestro main.go
+ ┗ 📜main.go
+```
+
+En nuestro ``mensaje/saludo1.go`` crearemos 2 funciones, 1 privada y 1 pública.
+
+```go
+// mensaje/saludo1.go
+
+// Definimos el paquete (nombre de la carpeta)
+package mensaje
+
+// Importamos lo que necesitamos
+import "fmt"
+
+// saludoPrivado es un mensaje privado
+func saludoPrivado() {
+    /*
+     * Esto es una función privada, ya que el nombre de la función inicia con minusculas
+     * El comentario que esta encima de la función es la "documentación" de la función
+     * (lo que sale al hacer hover en VSCode)
+    */
+    fmt.Println("Hola desde mensaje/saludo1.go (saludoPrivado)")
+}
+
+// SaludoPublico es un mensaje público
+func SaludoPublico() {
+    /*
+     * Esto es una función pública ya que el nombre de la función inicia con mayusculas
+     * El comentario que esta encima de la función es la "documentación" de la función
+     * (lo que sale al hacer hover en VSCode)
+    */
+    fmt.Println("Hola desde mensaje/saludo1.go (SaludoPublico)")
+}
+```
+
+Ya con esto tenemos 2 funciones muy sencillas dentro de nuestro ``mensaje/saludo1.go``, ahora tenemos que mostrarlas en el ``main.go``.
+
+El problema esta en que en ``main.go`` solo podemos acceder a funciones públicas, las funciones privadas solo se pueden acceder dentro del mismo paquete (no pueden salir de la carpeta donde se encuentra el archivo, las públicas si).
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+    /*
+     * Importamos el PAQUETE que creamos
+     * github.com/USER/NOMBRE_CARPETA_EN_LA_QUE_ESTAMOS_TRABAJANDO/PAQUETE
+    */
+    "github.com/Wilovy09/Go_desde_0/mensaje"
+)
+
+func main() {
+    fmt.Println("Hola desde main.go")
+
+    // accedemos al paquete y usamos su metodo SaludoPublico
+    mensaje.SaludoPublico()
+    // mensaje.saludoPrivado() // Error: saludoPrivado is not visible
+}
+```
+
+Ahora crearemos otro archivo en nuestro paquete ``mensaje``
+
+```go
+📦Go_desde_0
+ ┣ 📂mensaje
+ ┃ ┣ 📜saludo1.go
+ ┃ ┃ // Creamos un nuevo archivo "saludo2.go"
+ ┃ ┗ 📜saludo1.go
+ ┣ 📜go.mod
+ ┗ 📜main.go
+```
+
+Dentro de este nuevo archivo pondremos
+
+```go
+// mensaje/saludo2.go
+package mensaje
+
+import "fmt"
+
+// Ejecuta una fución privada de saludo1.go
+func OtraFuncion() {
+    fmt.Println("\nEjecutando la función privada desde otra función en otro archivo del mismo paquete")
+
+    /* llamamos a la saludoPrivado directamente, ya que si estamos en el mismo paquete
+     * podemos llamar a las funciones de otros archivos
+     */
+    saludoPrivado()
+}
+```
+
+Y modificaremos el ``main.go``
+
+```go
+// main.go
+package main
+
+import (
+    "fmt"
+    "github.com/Wilovy09/Go_desde_0/mensaje"
+)
+
+func main() {
+    fmt.Println("Hola desde main.go")
+    mensaje.SaludoPublico()
+    // mensaje.saludoPrivado() // Error: saludoPrivado is not visible
+
+    // llamamos a la nueva funcion de saludo2.go
+    mensaje.OtraFuncion()
+}
+```
+
+> [!WARNING]
+> No podemos crear otra ``función main`` dentro de un paquete ya que la función main solo puede ser ``creada`` en el ``punto de entrada`` de nuestra aplicación. ( ``main.go`` )
+
+---
+
+## Go extras
+
+```sh
+# Para inicializar un modulo de go
+go mod init github.com/USER/NOMBRE_CARPETA_EN_LA_QUE_ESTAMOS_TRABAJANDO
 ```
 
 ```sh
@@ -832,5 +1027,5 @@ go list -m -json all
 
 ```sh
 # Para ver la documentación de un paquete
-go doc fmt
+go doc NOMBRE_PAQUETE
 ```
