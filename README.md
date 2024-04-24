@@ -1090,6 +1090,78 @@ func main() {
 }
 ```
 
+## Type
+
+En Go podemos crear un tipo de dato personalizado, para hacer esto usamos la palabra reservada ``type`` seguido del nombre del tipo de dato que queremos crear y el tipo de dato que va a ser.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+type entero int
+
+func main() {
+
+    var a entero = 42
+
+    fmt.Println(a)
+}
+```
+
+## Struct
+
+En Go podemos crear una estructura de datos personalizada, para hacer esto usamos la palabra reservada ``struct`` seguido del nombre de la estructura y dentro de las llaves ponemos los campos que va a tener nuestra estructura.
+
+- Una estructura es un tipo de dato que puede contener varios campos.
+- Los campos de una estructura pueden ser de cualquier tipo de dato.
+- Para acceder a los campos de una estructura usamos el operador punto ``.``.
+- La estructura la creamos fuera de la función main.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    // Crear una instancia de la estructura Curso y asignar valores a sus campos
+    curso1 := Curso{
+        nombre: "Curso profesional de Go",
+        url: "https://go.com/",
+        habilidades: []string{"Go", "Backend"},
+    }
+
+    fmt.Println(curso1)
+    fmt.Println(curso1.nombre)
+    fmt.Println(curso1.url)
+    fmt.Println(curso1.habilidades)
+
+    // Crear una instancia de la estructura Curso vacia
+    curso2 := new(Curso)
+
+    // Asignar valores a los campos de la estructura Curso
+    curso2.nombre = "Curso de Python"
+    curso2.url = "https://python.com/"
+    curso2.habilidades = []string{"Python", "Backend"}
+
+    fmt.Println(curso2)
+    fmt.Println(curso2.nombre)
+    fmt.Println(curso2.url)
+    fmt.Println(curso2.habilidades)
+}
+
+// Curso es una estructura que representa un curso
+type Curso struct {
+    nombre string
+    url string
+    habilidades []string
+}
+```
+
 ---
 
 ## Go extras
