@@ -532,7 +532,7 @@ func main() {
 
 ## Operadores lógicos
 
-Los péradores lógicos lo que hace es comprarar dos valores booleanos, tenemos 3 operadores:
+Los operadores lógicos lo que hace es comprarar dos valores booleanos, tenemos 3 operadores:
 
 - **NOT !**, lo que hace negar su valor. Si su valor es true lo negara a false.
 
@@ -707,4 +707,130 @@ func main() {
     }
 
 }
+```
+
+## Manejo de datos
+
+### Array / Arreglos
+
+Array es un almacenador de datos fijos, puede almacenar cantidad de datos pero indicando cuantos datos va almacenar ese array, y en Go, como es tipado solo puede almacenar un tipo de datos.
+
+- Un array se define como las vanables solo que en array se coloca dentro de los corchetes la cantidad de datos que va almacenar y para agregar y modificar su datos usamos el índice de cada dato que se coloca entre corchetes.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // Declararar un array de 2 elementos
+    var array1 [2]string
+
+    // Asignar valores a los elementos del array
+    array1[0] = "Hello"
+    array1[1] = "World"
+
+    // Imprimir el array
+    fmt.Println(array1)
+
+    // Declarar e inicializar un array de 2 elementos
+    array2 := [2]string{"Hello", "World"}
+    // Imprimir el array
+    fmt.Println(array2)
+}
+```
+
+### Slicen
+
+Los slicen son parecidas a los array que también almacena datos pero los slicen almacena cantidad de datos indeterminados, que puede almacenar cantidad de vanables que tu desees.
+
+- Puedes definir un slicen vacio y luego agregar los datos con la función append.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    // Creamos un slice de strings
+    var slicen1 []string
+
+    // Agregamos elementos al slice
+    slicen1 = append(slicen1, "a")
+    slicen1 = append(slicen1, "b", "c", "d")
+
+    // Imprimimos el slice1
+    fmt.Println(slicen1)
+
+    // Creamos un slice de strings y lo inicializamos con valores
+    slicen2 := []string{"e", "f"}
+    fmt.Println(slicen2)
+}
+```
+
+## Funciones
+
+Una función es útil para ordenar nuestros códigos, para reutilizar códigos, para hacer más legible nuestro código.
+
+- Una función puede recibir parámetros y devolver un valor.
+- Una función se puede definir con la palabra reservada ``func`` seguido del nombre de la función y los parámetros que va a recibir y el tipo de dato que va a devolver.
+- Para llamar a una función solo se escribe el nombre de la función y los parámetros que va a recibir.
+
+```go
+package main
+
+import "fmt"
+
+// Definir una función con parámetros y retorno
+func suma(a int, b int) int {
+    return a + b
+}
+
+// Nuestra función principal
+func main() {
+
+    // Llamar a la función y mostrar el resultado
+    fmt.Println(suma(5, 5))
+
+    // Llamar a la función saludo
+    saludo()
+}
+
+// Definir una función sin parámetros y sin retorno
+func saludo() {
+    fmt.Println("Hola, Wilovy")
+}
+```
+
+---
+
+## Go
+
+```sh
+# Para inicializar un modulo de go
+go mod init NOMBRE
+```
+
+```sh
+# Para limpiar los modulos que no se estan usando
+go mod tidy
+```
+
+```sh
+# Para descargar los modulos que se estan usando
+go mod vendor
+```
+
+```sh
+# Para ver los modulos que se estan usando
+go list -m all
+
+go list -m -json all
+```
+
+```sh
+# Para ver la documentación de un paquete
+go doc fmt
 ```
