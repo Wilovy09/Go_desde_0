@@ -999,6 +999,97 @@ func main() {
 > [!WARNING]
 > No podemos crear otra ``función main`` dentro de un paquete ya que la función main solo puede ser ``creada`` en el ``punto de entrada`` de nuestra aplicación. ( ``main.go`` )
 
+## Maps
+
+Las mapas son como una listas que almacena cantidad de datos con clave y valor, Map en Go se parece a los diccionarios de Python. Para definir una mapa se hace como variables 0 array, en este caso ponemos map luego dentro de los corchetes ponemos el tipo de dato que será la clave y luego el tipo de dato que será su valor y podemos hacer inicializando con valor predeterminado dentro de las llaves, clave y valor separados con dos puntos y cada elemento separados con coma.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    // map[CLAVE]VALOR{ "CLAVE" : VALOR , "CLAVE" : VALOR , "CLAVE" : VALOR }
+    // Definir un Map con un valor iniciado
+    mapa1 := map[string]int{
+        "uno":1,
+        "dos":2,
+        "tres":3,
+    }
+    fmt.Println(mapa1)
+
+    // Para agregar datos al map
+    // nombre[CLAVE] = VALOR
+    mapa1["cuatro"] = 4
+    fmt.Println(mapa1)
+
+    // Buscar por clave
+    fmt.Println(mapa1["cuatro"])
+
+    // Eliminar un dato
+    delete(mapa1, "cuatro")
+    fmt.Println(mapa1)
+
+    // Definir un map vacio
+    mapa2 := make(map[int]string)
+    mapa2[1] = "Uno"
+    fmt.Println(mapa2)
+}
+```
+
+## For y Range
+
+El Range sirve para iterar sobre un array, slice, map, string, etc... y nos devuelve el indice y el valor de cada elemento.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    array1 := []int{1,2,3,4}
+
+    // para no iterar el indice ponemos _
+    for _, num := range array1{
+        fmt.Println(num)
+    }
+
+    // para iterar con el indice
+    for i, num := range array1{
+        fmt.Println(i, "=>", num)
+    }
+}
+```
+
+Aqui hay un ejemplo de como hacer un for con un map.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    colores := map[string]string{
+        "rojo":   "#ff0000",
+        "verde":  "#4bf745",
+        "azul":   "#0000ff",
+    }
+
+    for clave, valor := range colores {
+        fmt.Println(clave, "=>", valor)
+    }
+}
+```
+
 ---
 
 ## Go extras

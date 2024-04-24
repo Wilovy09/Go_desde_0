@@ -2,13 +2,17 @@ package main
 
 import (
     "fmt"
-    "github.com/Wilovy09/Go_desde_0/mensaje"
 )
 
 func main() {
-    fmt.Println("Hola desde main.go")
-    mensaje.SaludoPublico()
-    // mensaje.saludoPrivado() // Error: saludoPrivado is not visible
 
-    mensaje.OtraFuncion()
+    colores := map[string]string{
+        "rojo":   "#ff0000",
+        "verde":  "#4bf745",
+        "azul":   "#0000ff",
+    }
+
+    for clave, valor := range colores {
+        fmt.Println(clave, "=>", valor)
+    }
 }
