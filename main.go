@@ -5,35 +5,34 @@ import (
 )
 
 func main() {
-    // Crear una instancia de la estructura Curso y asignar valores a sus campos
-    curso1 := Curso{
-        nombre: "Curso profesional de Go",
-        url: "https://go.com/",
-        habilidades: []string{"Go", "Backend"},
-    }
 
-    fmt.Println(curso1)
-    fmt.Println(curso1.nombre)
-    fmt.Println(curso1.url)
-    fmt.Println(curso1.habilidades)
+    // Creamos una nueva carrera vacia new(Carrera)
+    carrera1 := new(Carrera)
 
-    // Crear una instancia de la estructura Curso vacia
-    curso2 := new(Curso)
+    carrera1.nombreCarrera = "Programación backend"
+    carrera1.duracionCarrera = 5
+    carrera1.nombre = "Curso de Go"
+    carrera1.url = "https://www.google.com"
+    carrera1.habilidades = []string{"Go", "Backend"}
 
-    // Asignar valores a los campos de la estructura Curso
-    curso2.nombre = "Curso de Python"
-    curso2.url = "https://python.com/"
-    curso2.habilidades = []string{"Python", "Backend"}
+    carrera1.inscribirse("Wilovy")
 
-    fmt.Println(curso2)
-    fmt.Println(curso2.nombre)
-    fmt.Println(curso2.url)
-    fmt.Println(curso2.habilidades)
+    fmt.Println(carrera1)
 }
-
-// Curso es una estructura que representa un curso
+// Curso nueva estructura
 type Curso struct {
     nombre string
     url string
     habilidades []string
+}
+// inscribirse es un método de la estructura Curso
+func (c Curso) inscribirse(nombre string){
+    fmt.Printf("La persona %s se ha inscrito al curso %s \n", nombre, c.nombre)
+}
+
+// Carrera nueva estructura
+type Carrera struct {
+    nombreCarrera string
+    duracionCarrera int
+    Curso
 }

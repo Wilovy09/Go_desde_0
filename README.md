@@ -1,12 +1,102 @@
 # Go desde 0
 
+- Go es un lenguaje de programación de código abierto que facilita la creación de software simple, confiable y eficiente.
+- Go es un lenguaje de programación compilado y concurrente, desarrollado por Google.
+
+## Instalar Go
+
+Para instalar Go en tu sistema operativo, puedes seguir los siguientes pasos:
+
+### Windows
+
+1. Descarga el instalador de Go desde la [página oficial](https://go.dev/).
+2. Ejecuta el instalador y sigue los pasos que te indica.
+3. Abre una terminal y escribe `go version` para verificar que la instalación fue exitosa.
+4. Crea una carpeta en tu escritorio llamada `Go_desde_0`.
+5. Abre tu editor de código favorito y abre la carpeta `Go_desde_0`.
+6. Crea un archivo llamado `main.go`.
+7. Dentro de `main.go` escribe el siguiente código:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+8. Guarda el archivo y en la terminal escribe `go run main.go`.
+9. Deberías ver el mensaje `Hello, World!` en la terminal.
+
+### Linux
+
+1. Abre una terminal y escribe el siguiente comando:
+
+```sh
+sudo apt-get update
+```
+
+2. Luego, escribe el siguiente comando:
+
+```sh
+sudo apt-get install golang
+```
+
+3. Abre una terminal y escribe `go version` para verificar que la instalación fue exitosa.
+4. Crea una carpeta en tu escritorio llamada `Go_desde_0`.
+5. Abre tu editor de código favorito y abre la carpeta `Go_desde_0`.
+6. Crea un archivo llamado `main.go`.
+7. Dentro de `main.go` escribe el siguiente código:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+8. Guarda el archivo y en la terminal escribe `go run main.go`.
+9. Deberías ver el mensaje `Hello, World!` en la terminal.
+
+### MacOS
+
+1. Abre una terminal y escribe el siguiente comando:
+
+```sh
+brew install go
+```
+
+2. Abre una terminal y escribe `go version` para verificar que la instalación fue exitosa.
+3. Crea una carpeta en tu escritorio llamada `Go_desde_0`.
+4. Abre tu editor de código favorito y abre la carpeta `Go_desde_0`.
+5. Crea un archivo llamado `main.go`.
+6. Dentro de `main.go` escribe el siguiente código:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+7. Guarda el archivo y en la terminal escribe `go run main.go`.
+8. Deberías ver el mensaje `Hello, World!` en la terminal.
+
 ## Como descargar paquetes y herramientas
 
-Para hacer esto en VSCode debemos tener instalada la extensión de Go.
+Para hacer esto en [VSCode](https://code.visualstudio.com/) debemos tener instalada la [extensión de Go](https://marketplace.visualstudio.com/items?itemName=golang.go).
 
 Ejecutamos ``ctrl+shift+p`` o ``f1`` para abrir la paleta de comandos.
 
-Una vez estemos en la paleta de comandos escribiremos `GO: Install/Update Tools` y seleccionaremos todas las herramientas que nos de para actualizar, esperamos a que todas nos regresen un `SUCCEEDED` y listo!. Tenemos nuestro sistema de Go actualizado.
+Una vez estemos en la paleta de comandos escribiremos `GO: Install/Update Tools` y seleccionaremos todas las herramientas que nos de para actualizar, esperamos a que todas nos regresen un `SUCCEEDED` en el apartado SALIDA de nuestra terminal. Tendremos nuestro sistema de Go actualizado.
 
 ## Hola mundo
 
@@ -1162,6 +1252,131 @@ type Curso struct {
 }
 ```
 
+## Métodos y herencia
+
+Para poder seguir con esta parte, tenemos que tener el código desarrollado de la parte de [Struct](#struct).
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    curso1 := Curso{
+        nombre: "Curso profesional de Go",
+        url: "https://go.com/",
+        habilidades: []string{"Go", "Backend"},
+    }
+
+}
+
+type Curso struct {
+    nombre string
+    url string
+    habilidades []string
+}
+```
+
+### Crear métodos
+
+Ahora aprenderemos a crear Métodos, los métodos se crean como una función pero con un receptor, el receptor es el nombre de la estructura que va a tener el método.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    curso1 := Curso{
+        nombre: "Curso profesional de Go",
+        url: "https://go.com/",
+        habilidades: []string{"Go", "Backend"},
+    }
+
+    // imprimimos la estructura curso1
+    fmt.Println(curso1)
+
+    // llamamos al método inscribirse
+    curso1.inscribirse("Wilovy")
+
+}
+// Curso es una estructura que representa un curso
+type Curso struct {
+    nombre string
+    url string
+    habilidades []string
+}
+
+/*
+ * inscribirse es un método de la estructura Curso
+ * el receptor es el nombre de la estructura que va a tener el método
+ * el método inscribirse recibe un parámetro nombre de tipo string
+*/
+
+// inscribirse es un método de la estructura Curso
+func (c Curso) inscribirse(nombre string){
+    fmt.Printf("La persona %s se ha inscrito al curso %s \n", nombre, c.nombre)
+}
+```
+
+Si ponemos atención, estamos creando una función que se llama ``inscribirse`` y esta función tiene un receptor que es el nombre de la estructura que va a tener el método, en este caso es ``Curso``, entonces tenemos ``func (c Curso)`` que viene siendo básicamente una variable ``c`` de tipo ``Curso`` luego el nombre de la función y recibe como parametro un nombre de tipo string ``func (c Curso) inscribirse(nombre string){}``.
+
+Y para acceder a los valores de la estructura usamos el receptor ``c``, en este ejemplo lo usamos para hacer un print del nombre del curso.
+
+### Herencia
+
+Ya sabemos crear métodos, ahora vamos a ver como hacer herencia en Go, para hacer herencia en Go simplemente creamos una estructura que tenga como campo otra estructura.
+
+Básicamente vamos a heredar una estructura dentro de otra estructura.
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+
+    // Creamos una nueva carrera vacia new(Carrera)
+    carrera1 := new(Carrera)
+
+    carrera1.nombreCarrera = "Programación backend"
+    carrera1.duracionCarrera = 5
+    carrera1.nombre = "Curso de Go"
+    carrera1.url = "https://www.google.com"
+    carrera1.habilidades = []string{"Go", "Backend"}
+
+    carrera1.inscribirse("Wilovy")
+
+    fmt.Println(carrera1)
+}
+// Curso nueva estructura
+type Curso struct {
+    nombre string
+    url string
+    habilidades []string
+}
+// inscribirse es un método de la estructura Curso
+func (c Curso) inscribirse(nombre string){
+    fmt.Printf("La persona %s se ha inscrito al curso %s \n", nombre, c.nombre)
+}
+
+// Carrera nueva estructura
+type Carrera struct {
+    nombreCarrera string
+    duracionCarrera int
+    Curso
+}
+```
+
+> [!TIP]
+> Para entender de mejor forma la herencia en Go, te recomiendo que veas el video [Métodos y Herencia en Go - Roelcode](https://youtu.be/3dwTYkyR9_E?si=MwS4WsG474Q_tS8H).
+
 ---
 
 ## Go extras
@@ -1191,4 +1406,9 @@ go list -m -json all
 ```sh
 # Para ver la documentación de un paquete
 go doc NOMBRE_PAQUETE
+```
+
+```sh
+# Para compilar un archivo de Go
+go build NOMBRE_ARCHIVO.go
 ```
