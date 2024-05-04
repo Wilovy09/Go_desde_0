@@ -3,6 +3,9 @@
 - Go es un lenguaje de programación de código abierto que facilita la creación de software simple, confiable y eficiente.
 - Go es un lenguaje de programación compilado y concurrente, desarrollado por Google.
 
+* [ ] Como dockerizar una app sencilla (sin paquetes externos)
+* [ ] Como dockerizar una app comnpleja (con paquetes externos)
+
 ## Instalar Go
 
 Para instalar Go en tu sistema operativo, puedes seguir los siguientes pasos:
