@@ -1379,6 +1379,236 @@ type Carrera struct {
 
 ---
 
+## Estructura recomendada para proyectos en Go
+
+Esta estructura es recomendada para proyectos en Go, para que sea más fácil de entender y de mantener.
+
+Esta basada en la estructura recomendada en la documentaciónm oficial.
+
+[Video de referencia](https://youtu.be/DHSp2VHP4dM?si=2SnVvGBU7bgCyiQJ)
+
+```txt
+📦estructura_recomendada
+┣ 📂bin
+┃ ┗ 📜myapp.exe
+┣ 📂cmd
+┃ ┣ 📂api
+┃ ┃ ┗ 📜api.go
+┃ ┗ 📜main.go
+┣ 📂internal
+┃ ┣ 📂config
+┃ ┃ ┗ 📜env.go
+┃ ┣ 📂db
+┃ ┃ ┗ 📜db.go
+┃ ┣ 📂middleware
+┃ ┃ ┗ 📂auth
+┃ ┃ ┃ ┣ 📜jwt.go
+┃ ┃ ┃ ┗ 📜password.go
+┃ ┣ 📂services
+┃ ┃ ┗ 📂user
+┃ ┃ ┃ ┣ 📜routes.go
+┃ ┃ ┃ ┗ 📜store.go
+┃ ┗ 📂types
+┃ ┃ ┗ 📜types.go
+┣ 📂pkg
+┃ ┣ 📂middleware
+┃ ┃ ┗ 📜cache.go
+┃ ┗ 📂utils
+┃ ┃ ┗ 📜ustils.go
+┗ 📂test
+  ┗ 📜test.go
+```
+
+- **bin:** Aquí se almacenan los binarios de nuestra aplicación.
+- **cmd** Aplicación principal dentro de esta carpeta
+  - No se pone demasiado código dentro de cmd.
+  - Es común una función main pequeña.
+  - Todo en paquetes.
+- **internal** Código interno de la aplicación
+  - Limita la visibilidad al propio paquete y subpaquetes.
+  - Organiza el código interno sin exponer detalles de implementación.
+  - Evita dependencias no deseadas y mantiene la separación de interfaces.
+- **pkg** Código que puede ser importado por otros proyectos.
+  - Almacena código reutilizable y compartible.
+  - Mejora la claridad y organización del propyecto.
+  - Facilita la separación entre la lógica de la aplicación y el código reutilizable.
+- **test** Pruebas unitarias y de integración.
+  - Pruebas unitarias y de integración.
+  - Pruebas de rendimiento y de carga.
+  - Pruebas de seguridad y de regresión.
+
+## Testing con Go
+
+Las pruebas en general suelen ser una parte importante de cualquier proyecto de software, ya que nos permiten asegurarnos de que nuestro código funciona correctamente.
+
+### Prueba unitaria
+
+Supongamos que tenemos una función que suma dos números y queremos probarla.
+
+```go
+// utils/utils.go
+package utils
+
+func Sum(a, b int) int {
+    return a + b
+}
+```
+
+Para probar esta función, creamos un archivo ``test/sum_test.go``.
+
+```go
+// test/sum_test.go
+package test
+
+import (
+    "testing"
+    "github.com/USER/Go_desde_0/utils"
+)
+func TestSum(t *testing.T) {
+    result := utils.Sum(5, 5)
+    expected := 10
+    if result != expected {
+      t.Errorf("Sum(5,5) expected %d but got %d", expected, result)
+    } else {
+      t.Logf("Sum(5,5) expected %d and got %d", expected, result)
+    }
+}
+```
+
+Ahora para ejecutar la o las pruebas tenemos que estar dentro de nuestra carpeta ``test``.
+
+```sh
+cd test
+```
+
+Una vez dentro de la carpeta ``test`` ejecutamos el siguiente comando.
+
+```sh
+go test
+```
+
+Si el test es exitoso nos mostrara algo asi:
+
+```sh
+# CONSOLE
+$ go test
+PASS
+ok      github.com/Wilovy09/Go_desde_0/test     0.018s
+```
+
+De lo contrario:
+
+```sh
+# CONSOLE
+$ go test
+--- FAIL: TestSum (0.00s)
+    sum_test.go:11: Sum(5,5) expected 11 but got 10
+FAIL
+exit status 1
+FAIL    github.com/Wilovy09/Go_desde_0/test     0.027s
+```
+
+### Prueba de integración
+
+Supongamos que tienes un servidor HTTP simple en Go que devuelve "Hola, mundo!" como respuesta:
+
+```go
+// main.go
+package main
+
+import (
+    "net/http"
+    "github.com/Wilovy09/Go_desde_0/utils"
+)
+
+func main() {
+    http.HandleFunc("/", utils.Handler)
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+```go
+// utils/routes.go
+package utils
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func Handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "¡Hola, mundo!")
+}
+```
+
+```go
+// test/index_test.go
+package test
+
+import (
+    "net/http"
+    "net/http/httptest"
+    "testing"
+    "github.com/Wilovy09/Go_desde_0/utils"
+)
+
+func TestHandler(t *testing.T) {
+    req, err := http.NewRequest("GET", "/", nil)
+    if err != nil {
+        t.Fatal(err)
+    }
+
+    rr := httptest.NewRecorder()
+    handler := http.HandlerFunc(utils.Handler)
+
+    handler.ServeHTTP(rr, req)
+
+    if status := rr.Code; status != http.StatusOK {
+        t.Errorf("handler returned wrong status code: got %v want %v",
+            status, http.StatusOK)
+    }
+
+    expected := "¡Hola, mundo!"
+    if rr.Body.String() != expected {
+        t.Errorf("handler returned unexpected body: got %v want %v",
+            rr.Body.String(), expected)
+    }
+}
+```
+
+Ahora para ejecutar la o las pruebas tenemos que estar dentro de nuestra carpeta ``test``.
+
+```sh
+cd test
+```
+
+Una vez dentro de la carpeta ``test`` ejecutamos el siguiente comando.
+
+```sh
+go test
+```
+
+Si el test es exitoso nos mostrara algo asi:
+
+```sh
+# CONSOLE
+$ go test
+PASS
+ok      github.com/Wilovy09/Go_desde_0/test     0.022s
+```
+
+De lo contario:
+
+```sh
+# Console
+$ go test
+--- FAIL: TestHandler (0.00s)
+    index_test.go:28: handler returned unexpected body: got ¡Hola, mundo! want ¡Hello, world!
+FAIL
+exit status 1
+FAIL    github.com/Wilovy09/Go_desde_0/test     0.033s
+```
+
 ## Go extras
 
 ```sh
@@ -1411,4 +1641,9 @@ go doc NOMBRE_PAQUETE
 ```sh
 # Para compilar un archivo de Go
 go build NOMBRE_ARCHIVO.go
+```
+
+```sh
+# Para ejecutar pruebas
+go test
 ```
